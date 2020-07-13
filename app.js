@@ -1,5 +1,5 @@
 const express = require('express')
-const pokemons = require('./mock-pokemons.js');
+const pokemons = require('./mock-pokemon.js');
 
 const app = express()
 const port = 3000
