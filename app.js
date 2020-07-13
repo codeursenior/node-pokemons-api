@@ -8,7 +8,7 @@ const port = 3000
 app.get('/', (req, res) => res.send('Hello, Express! 👋'))
 
 app.get('/api/pokemons', (req, res) => {
-  res.send(`Il y a ${pokemons.length} pokémons dans le pokédex pour le moment.`)
+  res.status(200).json(success('La liste des pokémons a bien été récupérée.', pokemons))
 })
 
 app.get('/api/pokemons/:id', (req, res) => {
