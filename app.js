@@ -13,7 +13,7 @@ app.get('/api/pokemons', (req, res) => {
 app.get('/api/pokemons/:id', (req, res) => {
   const id = parseInt(req.params.id)
   const pokemon = pokemons.find(pokemon => pokemon.id === id)
-  res.send(`Vous avez demandé le pokémon ${pokemon.name}.`)
+  res.json(pokemon)
 })
 
 app.listen(port, () => console.log(`Notre application Node est démarrée sur : http://localhost:${port}`))
