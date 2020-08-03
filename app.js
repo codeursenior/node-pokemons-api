@@ -5,6 +5,11 @@ const { success } = require('./helper.js');
 const app = express()
 const port = 3000
 
+app.use((req, res, next) => {
+  console.log('URL : ' + req.url)
+  next()
+})
+
 app.get('/', (req, res) => res.send('Hello, Express! 👋'))
 
 app.get('/api/pokemons', (req, res) => {
