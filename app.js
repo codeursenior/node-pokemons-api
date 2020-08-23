@@ -29,7 +29,8 @@ app.get('/api/pokemons/:id', (req, res) => {
 
 app.post('/api/pokemons', (req, res) => {
   let pokemon = req.body;
-  const id = pokemons.length + 1 
+  const lastPokemon = pokemons[pokemons.length - 1]
+  const id = lastPokemon.id + 1
   pokemon = { ...pokemon, id: id};
   pokemons.push(pokemon);
   const message = `Le pokémon ${pokemon.name} a bien été crée.`
