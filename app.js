@@ -2,8 +2,8 @@ const express = require('express')
 const morgan = require('morgan')
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
-const pokemons = require('./mock-pokemon.js');
-const { success } = require('./helper.js');
+let pokemons = require('./mock-pokemon.js');
+const { success, getUniqueId } = require('./helper.js');
 
 const app = express()
 const port = 3000
@@ -28,29 +28,27 @@ app.get('/api/pokemons/:id', (req, res) => {
 })
 
 app.post('/api/pokemons', (req, res) => {
-  let pokemon = req.body;
-  const lastPokemon = pokemons[pokemons.length - 1]
-  const id = lastPokemon.id + 1
-  pokemon = { ...pokemon, id: id};
-  pokemons.push(pokemon);
-  const message = `Le pokémon ${pokemon.name} a bien été crée.`
-  res.json(success(message, pokemon))
+  const id = getUniqueId(pokemons)
+  const pokemonCreated = { ...req.body, id: id};
+  pokemons.push(pokemonCreated);
+  const message = `Le pokémon ${pokemonCreated.name} a bien été crée.`
+  res.json(success(message, pokemonCreated))
 })
 
 app.put('/api/pokemons/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const pokemonUpdated = { ...req.body, id: id }
-  const index = pokemons.findIndex(pokemon => id === pokemon.id)
-  pokemons[index] = pokemonUpdated
+  pokemons = pokemons.map(pokemon => {
+    return pokemon.id === id ? pokemonUpdated : pokemon
+  })
   const message = `Le pokémon ${pokemonUpdated.name} a bien été modifié.`
   res.json(success(message, pokemonUpdated))
 });
 
 app.delete('/api/pokemons/:id', (req, res) => {
   const id = parseInt(req.params.id)
-  const index = pokemons.findIndex(pokemon => id === pokemon.id)
-  const pokemonDeleted = pokemons[index]
-  delete pokemons[index];
+  const pokemonDeleted = pokemons.find(pokemon => pokemon.id === id)
+  pokemons = pokemons.filter(pokemon => pokemon.id !== id)
   const message = `Le pokémon ${pokemonDeleted.name} a bien été supprimé.`
   res.json(success(message, pokemonDeleted))
 });
