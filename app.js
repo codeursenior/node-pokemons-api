@@ -25,4 +25,17 @@ app.get('/api/pokemons/:id', (req, res) => {
   res.json(success(message, pokemon))
 })
 
+app.post('/api/pokemons', (req, res) => {
+  // Récupérer les données du pokémons de la requête HTTP
+  let pokemon = req.body;
+  // Attribution identifiant unique
+  const id = pokemons.length + 1 
+  pokemon = { ...pokemon, id: id};
+  // Ajout à la liste des pokémons
+  pokemons.push(pokemon);
+  
+  const message = `Le pokémon ${pokemon.name} a bien été crée.`
+  res.json(success(message, pokemon))
+})
+
 app.listen(port, () => console.log(`Notre application Node est démarrée sur : http://localhost:${port}`))
