@@ -20,16 +20,7 @@ app.get('/', (req, res) => res.send('Hello, Express! 👋'))
 require('./src/routes/findAllPokemons')(app)
 require('./src/routes/findPokemonByPk')(app)
 require('./src/routes/createPokemon')(app)
-
-app.put('/api/pokemons/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const pokemonUpdated = { ...req.body, id: id }
-  pokemons = pokemons.map(pokemon => {
-    return pokemon.id === id ? pokemonUpdated : pokemon
-  })
-  const message = `Le pokémon ${pokemonUpdated.name} a bien été modifié.`
-  res.json(success(message, pokemonUpdated))
-});
+require('./src/routes/updatePokemon')(app)
 
 app.delete('/api/pokemons/:id', (req, res) => {
   const id = parseInt(req.params.id)
