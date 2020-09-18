@@ -1,5 +1,5 @@
 const express = require('express')
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const morgan = require('morgan')
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -23,7 +23,7 @@ sequelize.authenticate()
   .then(_ => console.log('Connection has been established successfully.'))
   .catch(error => console.error('Unable to connect to the database:', error))
 
-const Pokemon = PokemonModel(sequelize, Sequelize)
+const Pokemon = PokemonModel(sequelize, DataTypes)
 
 sequelize.sync({force: true})
   .then(_ => console.log('La base de données "Pokedex" a bien été synchronisée.'))
