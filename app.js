@@ -5,7 +5,7 @@ const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 let pokemons = require('./mock-pokemon.js');
 const { success, getUniqueId } = require('./helper.js');
-const PokemonModel = require('./src/model/pokemon')
+const PokemonModel = require('./src/models/pokemon')
 
 const app = express()
 const port = 3000
@@ -28,14 +28,16 @@ const Pokemon = PokemonModel(sequelize, DataTypes)
 sequelize.sync({force: true})
   .then(_ => {
     console.log('La base de données "Pokedex" a bien été synchronisée.')
-    // Sequelize s'occupe pour nous de l'identifiant, et de la date d'ajout !
-    Pokemon.create({
-      name: 'Bulbizarre',
-      hp: 25,
-      cp: 5,
-      picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
-      types: ["Plante", "Poison"].join()
-    }).then(bulbizarre => console.log(bulbizarre.toJSON()))
+    // On initialise la base de données "Pokedex" avec 12 pokémons.
+    pokemons.map(pokemon => {
+      Pokemon.create({
+        name: pokemon.name,
+        hp: pokemon.hp,
+        cp: pokemon.cp,
+        picture: pokemon.picture,
+        types: pokemon.types.join()
+      }).then(pokemon => console.log(pokemon.toJSON()))
+    });
   })
 
 app
