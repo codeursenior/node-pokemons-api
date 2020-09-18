@@ -1,49 +1,19 @@
 const express = require('express')
-const { Sequelize, DataTypes } = require('sequelize');
 const morgan = require('morgan')
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
-let pokemons = require('./mock-pokemon.js');
-const { success, getUniqueId } = require('./helper.js');
-const PokemonModel = require('./src/models/pokemon')
+let pokemons = require('./src/db/mock-pokemon.js');
+const sequelize = require('./src/db/sequelize')
 
 const app = express()
 const port = 3000
-
-const sequelize = new Sequelize('pokedex', 'username', 'password', {
-  host: '192.168.64.2',
-  dialect: 'mariadb',
-  dialectOptions: {
-    timezone: 'Etc/GMT-2',
-  },
-  logging: false
-})
-
-sequelize.authenticate()
-  .then(_ => console.log('Connection has been established successfully.'))
-  .catch(error => console.error('Unable to connect to the database:', error))
-
-const Pokemon = PokemonModel(sequelize, DataTypes)
-
-sequelize.sync({force: true})
-  .then(_ => {
-    console.log('La base de données "Pokedex" a bien été synchronisée.')
-    // On initialise la base de données "Pokedex" avec 12 pokémons.
-    pokemons.map(pokemon => {
-      Pokemon.create({
-        name: pokemon.name,
-        hp: pokemon.hp,
-        cp: pokemon.cp,
-        picture: pokemon.picture,
-        types: pokemon.types.join()
-      }).then(pokemon => console.log(pokemon.toJSON()))
-    });
-  })
 
 app
 .use(favicon(__dirname + '/favicon.ico'))
 .use(morgan('dev'))
 .use(bodyParser.json())
+
+sequelize.initDb()
 
 app.get('/', (req, res) => res.send('Hello, Express! 👋'))
 
