@@ -14,12 +14,17 @@ app
 
 sequelize.initDb()
 
-app.get('/', (req, res) => res.send('Hello, Express! 👋'))
-
 require('./src/routes/findAllPokemons')(app)
 require('./src/routes/findPokemonByPk')(app)
 require('./src/routes/createPokemon')(app)
 require('./src/routes/updatePokemon')(app)
 require('./src/routes/deletePokemon')(app)
+
+// On gère les routes 404.
+app.use(({res}) => {
+  const message = 'Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.'
+	res.status(404).json({message});
+});
+
 
 app.listen(port, () => console.log(`Notre application Node est démarrée sur : http://localhost:${port}`))
