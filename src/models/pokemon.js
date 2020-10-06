@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isInt: { msg: 'N\'utilisez que des nombres entiers pour les points de vie.' }
+        isInt: { msg: 'N\'utilisez que des nombres entiers pour les points de vie.' },
+        notNull: { msg: 'Les points de vie sont une propriété requise.'}
       }
     },
     cp: {
