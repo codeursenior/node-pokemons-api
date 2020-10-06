@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        msg: 'Le nom est déjà pris.'
+      },
       validate: {
         isAlpha: { msg: 'Utilisez uniquement des lettres pour le nom.' },
         len: {
