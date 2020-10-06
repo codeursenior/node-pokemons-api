@@ -23,6 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isInt: { msg: 'Utilisez uniquement des nombres entiers pour les points de vie.' },
+        min: {
+          args: [0],
+          msg: 'Les points de vie doivent être supérieurs ou égales à 0.'
+        },
+        max: {
+          args: [999],
+          msg: 'Les points de vie doivent être inférieures ou égales à 999.'
+        },
         notNull: { msg: 'Les points de vie sont une propriété requise.'}
       }
     },
