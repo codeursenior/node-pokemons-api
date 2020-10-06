@@ -7,23 +7,36 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isAlpha: { msg: 'Utilisez uniquement des lettres pour le nom.' },
+        notEmpty: { msg: 'Le nom ne peut pas être vide.' },
+        notNull: { msg: 'Le nom est une propriété requise.'}
+      }
     },
     hp: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isInt: { msg: 'N\'utilisez que des nombres entiers pour les points de vie.' },
+        isInt: { msg: 'Utilisez uniquement des nombres entiers pour les points de vie.' },
         notNull: { msg: 'Les points de vie sont une propriété requise.'}
       }
     },
     cp: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isInt: { msg: 'Utilisez uniquement des nombres entiers pour les points de dégâts.' },
+        notNull: { msg: 'Les points de dégâts sont une propriété requise.'}
+      }
     },
     picture: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isUrl: { msg: 'Utilisez uniquement une URL valide pour l\'image.' },
+        notNull: { msg: 'L\'image est une propriété requise.'}
+      }
     },
     types: {
       type: DataTypes.STRING,
