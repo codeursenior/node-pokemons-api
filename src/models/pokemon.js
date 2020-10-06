@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isAlpha: { msg: 'Utilisez uniquement des lettres pour le nom.' },
+        len: {
+          args: [1, 25],
+          msg: 'Le nom doit contenir entre 1 et 25 caractères.'
+        },
         notEmpty: { msg: 'Le nom ne peut pas être vide.' },
         notNull: { msg: 'Le nom est une propriété requise.'}
       }
