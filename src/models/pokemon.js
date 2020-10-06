@@ -39,6 +39,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isInt: { msg: 'Utilisez uniquement des nombres entiers pour les points de dégâts.' },
+        min: {
+          args: [0],
+          msg: 'Les points de dégâts doivent être supérieurs ou égales à 0.'
+        },
+        max: {
+          args: [99],
+          msg: 'Les points de dégâts doivent être inférieures ou égales à 99.'
+        },
         notNull: { msg: 'Les points de dégâts sont une propriété requise.'}
       }
     },
