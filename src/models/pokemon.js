@@ -66,6 +66,16 @@ module.exports = (sequelize, DataTypes) => {
       },
       set(types) {
         this.setDataValue('types', types.join())
+      },
+      validate: {
+        isTypesValid(value) {
+          if(!value) {
+            throw new Error('Un pokémon doit au moins avoir un type.')
+          }
+          if(value.split(',').length > 3) {
+            throw new Error('Un pokémon ne peux pas avoir plus de trois types.')
+          }
+        }
       }
     }
   }, {
