@@ -15,7 +15,8 @@ module.exports = (app) => {
               [Op.startsWith]: capitalize(name)
             }
           }
-        } 
+        },
+        limit: 5
       })
       .then(pokemons => {
         const message = `Il y a ${pokemons.length} qui correspondent au terme de recherche ${name}.`
