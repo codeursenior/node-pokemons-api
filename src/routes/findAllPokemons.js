@@ -8,7 +8,7 @@ module.exports = (app) => {
       return Pokemon.findAll({ 
         where: { 
           name: {
-            [Op.eq]: name
+            [Op.like]: `%${name}%`
           }
         } 
       })
