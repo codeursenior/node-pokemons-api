@@ -1,6 +1,8 @@
 const { Pokemon } = require('../db/sequelize')
 const { Op } = require('sequelize')
 
+const capitalize = (str) => str.charAt(0).toUpperCase() + str.substring(1)
+
 module.exports = (app) => {
   app.get('/api/pokemons', (req, res) => {
     if(req.query.name) {
@@ -8,7 +10,10 @@ module.exports = (app) => {
       return Pokemon.findAll({ 
         where: { 
           name: {
-            [Op.like]: `%${name}%`
+            [Op.or]: {
+              [Op.like]: `%${name}%`,
+              [Op.startsWith]: capitalize(name)
+            }
           }
         } 
       })
