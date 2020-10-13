@@ -82,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
           }
           value.split(',').forEach(type => {
             if(!validTypes.includes(type)) {
-              throw new Error(`Le type d'un pokémon doit être sélectionné dans la liste suivante : ${validTypes}`)
+              throw new Error(`Le type d'un pokémon doit appartenir à la liste suivante : ${validTypes}`)
             }
           });
         }
