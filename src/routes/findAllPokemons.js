@@ -7,6 +7,12 @@ module.exports = (app) => {
   app.get('/api/pokemons', (req, res) => {
     if(req.query.name) {
       const name = req.query.name
+
+      if(name.length < 3) {
+        const message = `Le terme de recherche doit contenir au minimum 3 caractères.`
+        return res.status(400).json({ message })        
+      }
+
       return Pokemon.findAndCountAll({ 
         where: { 
           name: {
