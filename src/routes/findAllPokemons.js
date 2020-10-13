@@ -2,7 +2,16 @@ const { Pokemon } = require('../db/sequelize')
 
 module.exports = (app) => {
   app.get('/api/pokemons', (req, res) => {
-    Pokemon.findAll()
+    if(req.query.name) {
+      const name = req.query.name
+      return Pokemon.findAll({ where: { name: name } })
+      .then(pokemons => {
+        const message = `Il y a ${pokemons.length} qui correspondent au terme de recherche ${name}.`
+        return res.json({ message, data: pokemons })
+      })
+    } 
+    else {
+      Pokemon.findAll()
       .then(pokemons => {
         const message = 'La liste des pokémons a bien été récupéré.'
         res.json({ message, data: pokemons })
@@ -12,5 +21,6 @@ module.exports = (app) => {
                          Réessayez dans quelques instants.`
         res.status(500).json({ message, data: error })
       })
+    }
   })
 }
