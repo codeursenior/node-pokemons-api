@@ -22,6 +22,7 @@ module.exports = (app) => {
             }
           }
         },
+        order: ['name'],
         limit: 5
       })
       .then(({count, rows}) => {
