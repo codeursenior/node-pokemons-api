@@ -21,7 +21,7 @@ module.exports = (app) => {
 
         // Générer un jeton JWT valide pendant 24 heures.
         const token = jwt.sign(
-          { id: user.id },
+          { userId: user.id },
           privateKey,
           { expiresIn: '24h' }
         );
