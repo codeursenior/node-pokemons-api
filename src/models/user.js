@@ -12,13 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     password: {
-      type: DataTypes.STRING,
-      validate: {
-        len: {
-          args: [6, 25],
-          msg: 'Le mot de passe doit contenir entre 6 et 25 caractères.'
-        }
-      }
+      type: DataTypes.STRING
     }
   })
 }
