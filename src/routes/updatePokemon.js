@@ -1,8 +1,9 @@
 const { Pokemon } = require('../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
+const auth = require('../auth/auth')
 
 module.exports = (app) => {
-  app.put('/api/pokemons/:id', (req, res) => {
+  app.put('/api/pokemons/:id', auth, (req, res) => {
     const id = req.params.id
     Pokemon.update(req.body, {
       where: { id: id }
