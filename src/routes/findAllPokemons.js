@@ -8,6 +8,7 @@ module.exports = (app) => {
   app.get('/api/pokemons', auth, (req, res) => {
     if(req.query.name) {
       const name = req.query.name
+      const limit = parseInt(req.query.limit) || 5
 
       if(name.length < 2) {
         const message = `Le terme de recherche doit contenir au minimum 2 caractères.`
@@ -24,7 +25,7 @@ module.exports = (app) => {
           }
         },
         order: ['name'],
-        limit: 5
+        limit: limit
       })
       .then(({count, rows}) => {
         const message = `Il y a ${count} qui correspondent au terme de recherche ${name}.`
