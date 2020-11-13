@@ -9,7 +9,7 @@ const port = 3000
 
 app
 .use(favicon(__dirname + '/favicon.ico'))
-.use(morgan('dev'))
+//.use(morgan('dev'))
 .use(bodyParser.json())
 
 sequelize.initDb()
