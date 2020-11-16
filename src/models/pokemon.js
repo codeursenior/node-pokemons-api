@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         msg: 'Le nom est déjà pris.'
       },
       validate: {
-        isAlpha: { msg: 'Utilisez uniquement des lettres pour le nom.' },
         len: {
           args: [1, 25],
           msg: 'Le nom doit contenir entre 1 et 25 caractères.'
