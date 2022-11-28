@@ -16,6 +16,9 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.4.2",
+    "mysql": "2.18.1",
+    "pg-promise": "10.15.4",
+    "postgresql": "0.0.1",
     "sequelize": "^6.3.5",
     "serve-favicon": "^2.5.0"
   },
